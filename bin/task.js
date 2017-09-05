@@ -2,7 +2,7 @@
 
 const werelogs = require('werelogs');
 
-const QueueProcessor = require('PostProcessingConsumer');
+const QueueProcessor = require('./PostProcessingConsumer');
 
 const config = require('../conf/Config');
 const zkConfig = config.zookeeper;
