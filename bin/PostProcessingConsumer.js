@@ -67,6 +67,7 @@ class QueueProcessor {
         //TODO: Return to log.debug
         log.info('processing entry',
             {entry: sourceEntry.getLogInfo()});
+        return done();
 
     }
 
