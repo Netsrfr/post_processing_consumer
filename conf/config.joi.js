@@ -33,8 +33,8 @@ const joiSchema = {
             logName: joi.string().default('s3-recordlog'),
         }),
     },
-    topic: joi.string().required(),
     queueProcessor: {
+        topic: joi.string().required(),
         groupId: joi.string().required(),
         retryTimeoutS: joi.number().default(300),
         videoTranscode: {

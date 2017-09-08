@@ -30,9 +30,10 @@ class QueueProcessor {
      *   number of seconds before giving up retries of an entry
      *   replication
      */
-    constructor(zkConfig, topicConfig, tcConfig, tagConfig) {
+    //TODO: Integrate sourceConfig
+    constructor(zkConfig, consumerConfig, tcConfig, tagConfig) {
         this.zkConfig = zkConfig;
-        this.topicConfig = topicConfig;
+        this.consumerConfig = consumerConfig;
         this.tcConfig = tcConfig;
         this.tagConfig = tagConfig;
 
@@ -86,8 +87,8 @@ class QueueProcessor {
     start() {
         const consumer = new BackbeatConsumer({
             zookeeper: this.zkConfig,
-            topic: this.tagConfig.topic,
-            groupId: this.tagConfig.queueProcessor.groupId,
+            topic: this.consumerConfig.topic,
+            groupId: this.consumerConfig.groupId,
             concurrency: 1, // replication has to process entries in
                             // order, so one at a time
             queueProcessor: this.processKafkaEntry.bind(this),

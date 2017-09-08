@@ -30,8 +30,8 @@
       "port": 9990
     }
   },
-  "topic": "post-processing",
   "queueProcessor": {
+    "topic": "post-processing",
     "groupId": "post-processing-group",
     "retryTimeoutS": 300,
     "videoTranscode": {

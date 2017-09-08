@@ -6,12 +6,12 @@ const QueueProcessor = require('./PostProcessingConsumer');
 
 const config = require('../conf/Config');
 const zkConfig = config.zookeeper;
-const topicConfig = config.topic;
+const consumerConfig = config.queueProcessor;
 const tcConfig = config.queueProcessor.videoTranscode;
 const tagConfig = config.queueProcessor.autoTag;
 
 const queueProcessor = new QueueProcessor(zkConfig,
-                                          topicConfig, tcConfig,
+                                          consumerConfig, tcConfig,
                                           tagConfig);
 
 werelogs.configure({ level: config.log.logLevel,
