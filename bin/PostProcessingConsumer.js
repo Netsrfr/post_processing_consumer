@@ -19,7 +19,7 @@ class QueueProcessor {
      * @param {Object} sourceConfig.s3 - s3 endpoint configuration object
      * @param {Object} sourceConfig.auth - authentication info on source
      * @param {Object} destConfig - target S3 configuration
-     * @param {Object} destConfig.auth - authentication info on target
+     * @param {Object}
      * @param {Object} repConfig - replication configuration object
      * @param {String} repConfig.topic - replication topic name
      * @param {String} repConfig.queueProcessor - config object
@@ -36,7 +36,7 @@ class QueueProcessor {
         this.destConfig = destConfig;
         this.repConfig = repConfig;
 
-        this.logger = new Logger('Backbeat:Replication:QueueProcessor');
+        this.logger = new Logger('Backbeat:PostProcessing:QueueProcessor');
 
     }
 
@@ -67,6 +67,19 @@ class QueueProcessor {
         //TODO: Return to log.debug
         log.info('processing entry',
             {entry: sourceEntry.getLogInfo()});
+        /**
+         *  Pull data to local
+         *  Validate file type
+         *  Split calls between transcoding and auto-tagging here.
+         *  Transcoding:
+         *
+         *  Auto-Tagging:
+         *      call AI program on image
+         *      parse tags into appropriate data structure
+         *      Add tags to AWS //May not do this step
+         *      Replace Bucket with new version with meta tags
+         */
+        return done();
 
     }
 
