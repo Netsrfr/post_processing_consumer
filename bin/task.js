@@ -6,13 +6,13 @@ const QueueProcessor = require('./PostProcessingConsumer');
 
 const config = require('../conf/Config');
 const zkConfig = config.zookeeper;
-const repConfig = config.extensions.replication;
-const sourceConfig = repConfig.source;
-const destConfig = repConfig.destination;
+const sourceConfig = config.source;
+const tcConfig = queueProcessor.videoTranscode;
+const tagConfig = queueProcessor.autoTag;
 
 const queueProcessor = new QueueProcessor(zkConfig,
-                                          sourceConfig, destConfig,
-                                          repConfig);
+                                          sourceConfig, tcConfig,
+                                          tagConfig);
 
 werelogs.configure({ level: config.log.logLevel,
                      dump: config.log.dumpLevel });

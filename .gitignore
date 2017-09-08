@@ -54,3 +54,4 @@ typings/
 .idea/
 PostProcessingConsumer.iml
 src/
+/package-lock.json

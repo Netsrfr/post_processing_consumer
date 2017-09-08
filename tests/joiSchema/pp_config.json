@@ -1,0 +1,50 @@
+{
+  "zookeeper": {
+    "connectionString": "127.0.0.1:2181/postproc"
+  },
+  "kafka": {
+    "hosts": "127.0.0.1:9093"
+  },
+  "source": {
+    "transport": "http",
+    "s3": {
+      "host": "127.0.0.1",
+      "port": 8000
+    },
+    "auth": {
+      "type": "account",
+      "account": "bart",
+      "vault": {
+        "host": "127.0.0.1",
+        "port": 8500,
+        "adminPort": 8600
+      }
+    },
+    "logSource": "dmd",
+    "bucketd": {
+      "host": "127.0.0.1",
+      "port": 9000
+    },
+    "dmd": {
+      "host": "127.0.0.1",
+      "port": 9990
+    }
+  },
+  "topic": "post-processing",
+  "queueProcessor": {
+    "groupId": "post-processing-group",
+    "retryTimeoutS": 300,
+    "videoTranscode": {
+      "enabled": true,
+      "output": {
+        "mp4": true,
+        "mkv": true,
+        "m4v": false
+      }
+    },
+    "autoTag": {
+      "enabled": true,
+      "input": "jpg"
+    }
+  }
+}
