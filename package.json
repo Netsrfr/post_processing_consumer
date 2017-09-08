@@ -26,11 +26,13 @@
     "eslint-config-airbnb": "^6.0.0",
     "eslint-config-scality": "scality/Guidelines",
     "eslint-plugin-react": "^4.2.3",
+    "file-type": "^6.1.0",
     "joi": "^10.6",
     "kafka-node": "^1.6.0",
     "werelogs": "scality/werelogs"
   },
   "devDependencies": {
-    "mocha": "^3.3.0"
+    "mocha": "^3.3.0",
+    "file-type": "^6.1.0"
   }
 }
