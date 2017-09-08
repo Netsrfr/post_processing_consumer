@@ -16,45 +16,40 @@ const transportJoi = joi.alternatives().try('http', 'https')
     .default('http');
 
 const joiSchema = {
+    log: logJoi,
     zookeeper: {
         connectionString: joi.string().required(),
     },
     kafka: {
         hosts: joi.string().required(),
     },
-    log: logJoi,
-    extensions: {
-        replication: {
-            source: {
-                transport: transportJoi,
-                s3: hostPortJoi.required(),
-                auth: authJoi.required(),
-                logSource: joi.alternatives().try('bucketd', 'dmd').required(),
-                bucketd: hostPortJoi,
-                dmd: hostPortJoi.keys({
-                    logName: joi.string().default('s3-recordlog'),
-                }),
+    source: {
+        transport: transportJoi,
+        s3: hostPortJoi.required(),
+        auth: authJoi.required(),
+        logSource: joi.alternatives().try('bucketd', 'dmd').required(),
+        bucketd: hostPortJoi,
+        dmd: hostPortJoi.keys({
+            logName: joi.string().default('s3-recordlog'),
+        }),
+    },
+    topic: joi.string().required(),
+    queueProcessor: {
+        groupId: joi.string().required(),
+        retryTimeoutS: joi.number().default(300),
+        videoTranscode: {
+            enabled: joi.bool().required(),
+            input: joi.string.insensitive().try().required(),
+            output: {
+                mp4: joi.bool().required(),
+                mkv: joi.bool().required(),
+                m4v: joi.bool().required()
             },
-            destination: {
-                transport: transportJoi,
-                auth: authJoi.required(),
-                bootstrapList: bootstrapListJoi,
-                certFilePaths: joi.object({
-                    key: joi.string().required(),
-                    cert: joi.string().required(),
-                    ca: joi.string().empty(''),
-                }).required(),
-            },
-            topic: joi.string().required(),
-            queuePopulator: {
-                cronRule: joi.string().required(),
-                batchMaxRead: joi.number().default(10000),
-                zookeeperPath: joi.string().required(),
-            },
-            queueProcessor: {
-                groupId: joi.string().required(),
-                retryTimeoutS: joi.number().default(300),
-            },
+
+        },
+        autoTag: {
+            enabled: joi.bool().required(),
+            input: joi.string.insensitive().try('JPEG', 'JPG').required()
         },
     },
 };
