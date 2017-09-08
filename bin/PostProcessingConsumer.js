@@ -7,9 +7,9 @@ const CONSUMER_FETCH_MAX_BYTES = 5000020;
 class QueueProcessor {
 
     /**
-     * Create a queue processor object to activate Cross-Region
-     * Replication from a kafka topic dedicated to store replication
-     * entries to a target S3 endpoint.
+     * Create a queue processor object to activate meta-tagging and
+     * video transcoding from a kafka topic dedicated to update
+     * entries from S3 endpoint.
      *
      * @constructor
      * @param {Object} zkConfig - zookeeper configuration object
@@ -18,15 +18,13 @@ class QueueProcessor {
      * @param {Object} sourceConfig - source S3 configuration
      * @param {Object} sourceConfig.s3 - s3 endpoint configuration object
      * @param {Object} sourceConfig.auth - authentication info on source
-     * @param {Object} tcConfig - target S3 configuration
-     * @param {Object}
-     * @param {Object} tagConfig - replication configuration object
-     * @param {String} tagConfig.topic - replication topic name
-     * @param {String} tagConfig.queueProcessor - config object
+     * @param {Object} tcConfig - video transcoding configuration
+     * @param {Object} tagConfig - meta-tagging configuration object
+     * @param {String} consumerConfig.topic - kafka topic name
+     * @param {String} consumerConfig.groupId - kafka consumer group ID
+     * @param {String} consumerConfig - config object
      *   specific to queue processor
-     * @param {String} tagConfig.queueProcessor.groupId - kafka
-     *   consumer group ID
-     * @param {String} tagConfig.queueProcessor.retryTimeoutS -
+     * @param {String} consumerConfig.retryTimeoutS -
      *   number of seconds before giving up retries of an entry
      *   replication
      */
