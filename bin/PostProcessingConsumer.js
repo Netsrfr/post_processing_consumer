@@ -18,23 +18,23 @@ class QueueProcessor {
      * @param {Object} sourceConfig - source S3 configuration
      * @param {Object} sourceConfig.s3 - s3 endpoint configuration object
      * @param {Object} sourceConfig.auth - authentication info on source
-     * @param {Object} destConfig - target S3 configuration
+     * @param {Object} tcConfig - target S3 configuration
      * @param {Object}
-     * @param {Object} repConfig - replication configuration object
-     * @param {String} repConfig.topic - replication topic name
-     * @param {String} repConfig.queueProcessor - config object
+     * @param {Object} tagConfig - replication configuration object
+     * @param {String} tagConfig.topic - replication topic name
+     * @param {String} tagConfig.queueProcessor - config object
      *   specific to queue processor
-     * @param {String} repConfig.queueProcessor.groupId - kafka
+     * @param {String} tagConfig.queueProcessor.groupId - kafka
      *   consumer group ID
-     * @param {String} repConfig.queueProcessor.retryTimeoutS -
+     * @param {String} tagConfig.queueProcessor.retryTimeoutS -
      *   number of seconds before giving up retries of an entry
      *   replication
      */
-    constructor(zkConfig, sourceConfig, destConfig, repConfig) {
+    constructor(zkConfig, topicConfig, tcConfig, tagConfig) {
         this.zkConfig = zkConfig;
-        this.sourceConfig = sourceConfig;
-        this.destConfig = destConfig;
-        this.repConfig = repConfig;
+        this.topicConfig = topicConfig;
+        this.tcConfig = tcConfig;
+        this.tagConfig = tagConfig;
 
         this.logger = new Logger('Backbeat:PostProcessing:QueueProcessor');
 
@@ -86,8 +86,8 @@ class QueueProcessor {
     start() {
         const consumer = new BackbeatConsumer({
             zookeeper: this.zkConfig,
-            topic: this.repConfig.topic,
-            groupId: this.repConfig.queueProcessor.groupId,
+            topic: this.tagConfig.topic,
+            groupId: this.tagConfig.queueProcessor.groupId,
             concurrency: 1, // replication has to process entries in
                             // order, so one at a time
             queueProcessor: this.processKafkaEntry.bind(this),
