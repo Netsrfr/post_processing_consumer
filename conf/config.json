@@ -1,6 +1,6 @@
 {
   "zookeeper": {
-    "connectionString": "127.0.0.1:2181/postproc"
+    "connectionString": "kafka:2181/postproc"
   },
   "kafka": {
     "hosts": "127.0.0.1:9093"

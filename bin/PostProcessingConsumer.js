@@ -52,6 +52,7 @@ class QueueProcessor {
      */
     processKafkaEntry(kafkaEntry, done) {
         const log = this.logger.newRequestLogger();
+        log.info("\nprocessKafkaEntry\n");
 
         const sourceEntry = QueueEntry.createFromKafkaEntry(kafkaEntry);
         if (sourceEntry.error) {
@@ -66,6 +67,7 @@ class QueueProcessor {
         //TODO: Return to log.debug
         log.info('processing entry',
             {entry: sourceEntry.getLogInfo()});
+        log.info("test value: ", sourceEntry.value);
         /**
          *  Pull data to local
          *  Validate file type

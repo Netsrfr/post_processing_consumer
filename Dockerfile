@@ -24,6 +24,6 @@ RUN git clone https://github.com/Netsrfr/post_processing_consumer.git consumer
 WORKDIR /opt/post_processing/consumer
 RUN npm install
 
-#COPY config.json /opt/post_processing/consumer/conf
+COPY conf/config.json /opt/post_processing/consumer/conf
 #COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 #CMD supervisord -c /etc/supervisor/supervisord.conf -n
